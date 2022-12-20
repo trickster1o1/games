@@ -2,7 +2,6 @@
 
 word = "nischal"
 print('#Note: You get 8 attempts to guess it right.')
-status = 0
 
 def checkWord(inp, hint):
     count = 0
@@ -19,15 +18,16 @@ def checkWord(inp, hint):
 def main():
     hint = 'n__c__l'
     limit = 0
+    status = 0
     print(hint)
     print('Enter your guess: ')
-    while(limit <8):
+    while(limit < 8):
         uin = input()
         chk = checkWord(uin, hint)
         if(chk['status'] == 'success'):
             print('~~~~~~~~~~~~ Right Answer ~~~~~~~~~~~')
         elif(chk['status'] == 'finish'):
-            print('~*~*~*~*~*~*~*~* you\'ve wone *~*~*~*~*~*~*~*')
+            status = 1
             break
         else:
             print('******** Wrong Answer ********')
@@ -35,12 +35,7 @@ def main():
         hint = chk['hint']
         print(chk['hint'])
         print('Enter your guess: ')
-
-
-
-    
-        
-
+    print('~*~*~*~*~*~*~*~ You Win ~*~*~*~*~*~*~*~') if status else print('~*~*~*~*~*~*~ You Loose ~*~*~*~*~*~*~*~*~')
 
 
 

@@ -13,12 +13,14 @@ def checkWord(inp, hint):
             bhint[count] = inp
             return {'status': 'finish' if bhint.count('_') <= 0 else "success", 'hint':''.join(bhint)}
         count = count+1
-    return 0
+    return {'status':'fail', 'hint':''.join(bhint)}
 
 def main():
     hint = 'n__c__l'
     limit = 0
     status = 0
+    life = '00000000'
+    print('Life: 8 ('+life+')')
     print(hint)
     print('Enter your guess: ')
     while(limit < 8):
@@ -31,11 +33,18 @@ def main():
             break
         else:
             print('******** Wrong Answer ********')
-        limit += 1
+            b = list(life)
+            b[len(b)-1] = ''
+            life = ''.join(b)
+            limit += 1
+
         hint = chk['hint']
+        print('Life: '+str(8 - int(limit))+ '('+life+')')
         print(chk['hint'])
         print('Enter your guess: ')
     print('~*~*~*~*~*~*~*~ You Win ~*~*~*~*~*~*~*~') if status else print('~*~*~*~*~*~*~ You Loose ~*~*~*~*~*~*~*~*~')
+    print('Press Enter key to exit')
+    input()
 
 
 

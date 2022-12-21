@@ -1,5 +1,6 @@
 # Note: You get 5 attempts to guess it right
 import random
+import os
 class HangingMan:
     def selMode():
         print("Select Mode: \n 1) Single Player \n 2) Multi player")
@@ -46,7 +47,7 @@ class HangingMan:
         if(level == 0):
             print('Enter your word:')
         word = "tomato" if level == 1 else "bonfire" if level == 2 else "befuddled" if level == 3 else input().lower()
-        print('\n') if level != 0 else print('\n\n\n\n\n\n\n\n\n\n')
+        os.system('cls')
         if(level == 0):
             if(len(word) == 0):
                 HangingMan.main()

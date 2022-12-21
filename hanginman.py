@@ -84,13 +84,14 @@ class HangingMan:
                 limit += 1
 
             hint = chk['hint']
-            print('Life: '+str(8 - int(limit))+ '('+life+')')
+            print('Life: '+str(8 - int(limit))+ '('+life+') \n')
             print(chk['hint'])
             print('Enter your guess: ')
-        print(chk['hint']+'\n ~*~*~*~*~*~*~*~ You Win ~*~*~*~*~*~*~*~') if status else print('~*~*~*~*~*~*~ You Loose ~*~*~*~*~*~*~*~*~')
+        print('\n\n\n\n\n\n =========================================================\n\n'+chk['hint']+'\n ~*~*~*~*~*~*~*~ You Win ~*~*~*~*~*~*~*~') if status else print('\n\n\n\n\n\n =========================================================\n\n'+word+'\n~*~*~*~*~*~*~ You Loose ~*~*~*~*~*~*~*~*~')
         print('would u like to play again? y/n')
         again = input()
         if(again == 'y'):
+            os.system('cls')
             HangingMan.main()
         else:
             exit()

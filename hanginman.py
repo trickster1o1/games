@@ -30,11 +30,11 @@ class HangingMan:
         bhint = list(hint)
         for w in word:
             # bhint = list(hint)
-            if(inp == w):
+            if(inp.lower() == w):
                 # if(bhint[count] == inp):
                 #     s = 'fail'
                     # return {'status':'fail', 'hint':''.join(bhint)}
-                bhint[count] = inp
+                bhint[count] = inp.lower()
                 s = 'finish' if bhint.count('_') <= 0 else "success"
                 # return {'status': 'finish' if bhint.count('_') <= 0 else "success", 'hint':''.join(bhint)}
             count = count+1
@@ -45,9 +45,11 @@ class HangingMan:
         level = 0 if mode == 2 else HangingMan.defLevel()
         if(level == 0):
             print('Enter your word:')
-        word = "tomato" if level == 1 else "bonfire" if level == 2 else "befuddled" if level == 3 else input()
-        print('#Note: You get 8 attempts to guess it right.')
+        word = "tomato" if level == 1 else "bonfire" if level == 2 else "befuddled" if level == 3 else input().lower()
+        print('\n') if level != 0 else print('\n\n\n\n\n\n\n\n\n\n')
         if(level == 0):
+            if(len(word) == 0):
+                HangingMan.main()
             cHint = []
             for w in word:
                 cHint.append('_')
@@ -56,7 +58,8 @@ class HangingMan:
                 flag = random.randint(0,len(word)-1)
                 cHint[flag] = word[flag]
                 c += 1
-
+            cHint = "".join(cHint)
+        print('#Note: You get 8 attempts to guess it right.')
         hint = '__ma__' if level == 1 else "____i_e" if level == 2 else "b_f______" if level == 3 else cHint
         limit = 0
         status = 0

@@ -139,7 +139,9 @@ class TicTacToe:
             return TicTacToe.action(canvas)
         return mov
     def main():
+        os.system('cls')
         print('--------- Welcome to my TicTacToe ----------')
+        print('# Note: This is a multiplayer game so 2some is required #')
         canvas = '###\n###\n###'
         print(canvas)
         turn = True

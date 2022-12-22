@@ -1,4 +1,4 @@
-# Note: You get 5 attempts to guess it right
+# # Note: You get 5 attempts to guess it right
 import random
 import os
 class HangingMan:
@@ -97,5 +97,28 @@ class HangingMan:
             exit()
 
 
+class TicTacToe:
+    def move(m,c):
+        spot = m-1 if m <= 3 else m if m > 3 and m <=6 else m+1
+        cvas = list(c)
+        cvas[spot] = '0'
+        return ''.join(cvas)
+
+    def main():
+        print('--------- Welcome to my TicTacToe ----------')
+        canvas = '###\n###\n###'
+        print(canvas)
+        while(True):
+            p1move = int(input())
+            if(p1move == 0):
+                break
+            os.system('cls')
+            canvas = TicTacToe.move(p1move,canvas)
+            print(canvas)
+
 hman = HangingMan
-hman.main()
+ttt = TicTacToe
+print('Which game would you like to play? \n 1) Hanging Man \n 2) Tic Tac Toe')
+select = int(input())
+
+ttt.main() if select == 2 else hman.main()

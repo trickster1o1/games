@@ -123,14 +123,28 @@ class TicTacToe:
         c8 = cvas[2]+cvas[5]+cvas[8]
 
         return True if c1.count(turn) == 3 else True if c2.count(turn) == 3 else True if c3.count(turn) == 3 else True if c4.count(turn) == 3 else True if c5.count(turn) == 3 else True if c6.count(turn) == 3 else True if c7.count(turn) == 3 else True if c8.count(turn) == 3 else   False
-
+    def action(canvas):
+        mov = input()
+        try:
+            mov = int(mov)
+            if(mov > 9 or mov < 0):
+                os.system('cls')
+                print('just enter 1-9 dude')
+                print(canvas)
+                return TicTacToe.action(canvas)
+        except:
+            os.system('cls')
+            print('just enter 1-9 dude')
+            print(canvas)
+            return TicTacToe.action(canvas)
+        return mov
     def main():
         print('--------- Welcome to my TicTacToe ----------')
         canvas = '###\n###\n###'
         print(canvas)
         turn = True
         while(True):
-            p1move = int(input())
+            p1move = TicTacToe.action(canvas)
             if(p1move == 0):
                 break
             os.system('cls')

@@ -102,13 +102,20 @@ class TicTacToe:
         spot = m-1 if m <= 3 else m if m > 3 and m <=6 else m+1
         cvas = list(c)
         mark = '0' if turn else 'x'
+        if(cvas[spot] != '#'):
+            return {'status':'error', 'canvas':''.join(cvas)}
         cvas[spot] = mark
         game = TicTacToe.victory(cvas, mark)
         if(game):
             print('~~~~~~~ '+mark+' WINS ~~~~~~~~')
             print(''.join(cvas))
-            return False
-        return ''.join(cvas)
+            return {'status':False, 'canvas':''.join(cvas)}
+        if((''.join(cvas)).count('#') <= 0):
+            print('~~~~~~~~  Stale Mate ~~~~~~~')
+            print(''.join(cvas))
+            return {'status':False, 'canvas':''.join(cvas)}
+        return {'status':True, 'canvas':''.join(cvas)}
+
     
     def victory(cvas, turn):
         c1 = cvas[0]+cvas[1]+cvas[2]
@@ -123,6 +130,21 @@ class TicTacToe:
         c8 = cvas[2]+cvas[5]+cvas[8]
 
         return True if c1.count(turn) == 3 else True if c2.count(turn) == 3 else True if c3.count(turn) == 3 else True if c4.count(turn) == 3 else True if c5.count(turn) == 3 else True if c6.count(turn) == 3 else True if c7.count(turn) == 3 else True if c8.count(turn) == 3 else   False
+    
+    # def cpu(cvas, turn):
+    #     c1 = cvas[0]+cvas[1]+cvas[2]
+    #     c2 = cvas[4]+cvas[5]+cvas[6]
+    #     c3 = cvas[8]+cvas[9]+cvas[10]
+
+    #     c4 = cvas[0]+cvas[4]+cvas[8]
+    #     c5 = cvas[1]+cvas[5]+cvas[6]
+    #     c6 = cvas[2]+cvas[6]+cvas[10]
+
+    #     c7 = cvas[0]+cvas[5]+cvas[10]
+    #     c8 = cvas[2]+cvas[5]+cvas[8]
+
+
+
     def action(canvas):
         mov = input()
         try:
@@ -150,10 +172,12 @@ class TicTacToe:
             if(p1move == 0):
                 break
             os.system('cls')
-            canvas = TicTacToe.move(p1move,canvas,turn)
-            if(canvas == False):
+            cvs = TicTacToe.move(p1move,canvas,turn)
+            canvas = cvs['canvas']
+            if(cvs['status'] == False):
                 break
-            turn = False if turn else True
+            if(cvs['status'] != 'error'):
+                turn = False if turn else True
             print(canvas)
         
         print('Would you like to play again? y/n:')

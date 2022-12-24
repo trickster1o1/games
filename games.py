@@ -131,18 +131,27 @@ class TicTacToe:
 
         return True if c1.count(turn) == 3 else True if c2.count(turn) == 3 else True if c3.count(turn) == 3 else True if c4.count(turn) == 3 else True if c5.count(turn) == 3 else True if c6.count(turn) == 3 else True if c7.count(turn) == 3 else True if c8.count(turn) == 3 else   False
     
-    # def cpu(cvas, turn):
-    #     c1 = cvas[0]+cvas[1]+cvas[2]
-    #     c2 = cvas[4]+cvas[5]+cvas[6]
-    #     c3 = cvas[8]+cvas[9]+cvas[10]
 
-    #     c4 = cvas[0]+cvas[4]+cvas[8]
-    #     c5 = cvas[1]+cvas[5]+cvas[6]
-    #     c6 = cvas[2]+cvas[6]+cvas[10]
+    def aI(cvas):
+        c1 = cvas[0]+cvas[1]+cvas[2]
+        c2 = cvas[4]+cvas[5]+cvas[6]
+        c3 = cvas[8]+cvas[9]+cvas[10]
 
-    #     c7 = cvas[0]+cvas[5]+cvas[10]
-    #     c8 = cvas[2]+cvas[5]+cvas[8]
+        c4 = cvas[0]+cvas[4]+cvas[8]
+        c5 = cvas[1]+cvas[5]+cvas[6]
+        c6 = cvas[2]+cvas[6]+cvas[10]
 
+        c7 = cvas[0]+cvas[5]+cvas[10]
+        c8 = cvas[2]+cvas[5]+cvas[8]
+        return {'status':True, 'path':'c1'} if c1.count('0') == 2 else {'status':True, 'path':'c2'} if c2.count('0') == 2 else {'status':True, 'path':'c3'} if c3.count('0') == 2 else {'status':True, 'path':'c4'} if c4.count('0') == 2 else {'status':True, 'path':'c5'} if c5.count('0') == 2 else {'status':True, 'path':'c6'} if c6.count('0') == 2 else {'status':True, 'path':'c7'} if c7.count('0') == 2 else {'status':True, 'path':'c8'} if c8.count('0') == 2 else   {'status':False, 'path':''}
+
+
+    def cpu(cvas):
+        checkTactis = TicTacToe.aI(cvas)
+        if(checkTactis['status']):
+            print(True)
+        else:
+            print(False)
 
 
     def action(canvas):
@@ -160,13 +169,10 @@ class TicTacToe:
             print(canvas)
             return TicTacToe.action(canvas)
         return mov
-    def main():
-        os.system('cls')
-        print('--------- Welcome to my TicTacToe ----------')
-        print('# Note: This is a multiplayer game so 2some is required #')
-        canvas = '###\n###\n###'
-        print(canvas)
+
+    def singlePlayer(canvas):
         turn = True
+        print(canvas)
         while(True):
             p1move = TicTacToe.action(canvas)
             if(p1move == 0):
@@ -186,6 +192,45 @@ class TicTacToe:
             os.system('cls')
             TicTacToe.main()
         exit()
+
+    def multiPlayer(canvas):
+        turn = True
+        print(canvas)
+        while(True):
+            p1move = TicTacToe.action(canvas)
+            if(p1move == 0):
+                break
+            os.system('cls')
+            cvs = TicTacToe.move(p1move,canvas,turn)
+            canvas = cvs['canvas']
+            if(cvs['status'] == False):
+                break
+            if(cvs['status'] != 'error'):
+                turn = False if turn else True
+            print(canvas)
+        
+        print('Would you like to play again? y/n:')
+        ask = input()
+        if(ask.lower() == 'y'):
+            os.system('cls')
+            TicTacToe.main()
+        exit()
+        
+    def main():
+        os.system('cls')
+        print('--------- Welcome to my TicTacToe ----------')
+        # print('# Note: This is a multiplayer game so 2some is required #')
+        print('Choose mode: \n 1) Single Player \n 2) Multiplayer')
+        mode = input()
+        os.system('cls')
+        canvas = '###\n###\n###'
+        if(int(mode) == 2):
+            print('====== Multiplayer ======')
+            TicTacToe.singlePlayer(canvas)
+        else:
+            print('====== Single Player ======')
+            TicTacToe.multiPlayer(canvas)
+       
 
 hman = HangingMan
 ttt = TicTacToe

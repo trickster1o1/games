@@ -145,6 +145,8 @@ class TicTacToe:
         else:
             if(cvas[5] == '#'):
                 return TicTacToe.move(5, cvas, False)
+            elif(cvas[0] == '#'):
+                return TicTacToe.move(1, cvas, False)
             else:
                 check = TicTacToe.move(random.randint(1,9), cvas, False)
                 while(check['status'] == 'error'):

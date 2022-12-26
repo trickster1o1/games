@@ -116,14 +116,52 @@ class TicTacToe:
             return {'status':False, 'canvas':''.join(cvas)}
         return {'status':True, 'canvas':''.join(cvas)}
 
+
+    def aiMove(cvas, checkTactis):
+            if(checkTactis['path'] == 'c1'):
+                return TicTacToe.move(1 if cvas[0] == '#' else 2 if cvas[1] == '#' else 3, cvas, False)
+            elif(checkTactis['path'] == 'c2'):
+                return TicTacToe.move(4 if cvas[4] == '#' else 5 if cvas[5] == '#' else 6, cvas, False)
+            elif(checkTactis['path'] == 'c3'):
+                return TicTacToe.move(7 if cvas[8] == '#' else 7 if cvas[9] == '#' else 8, cvas, False)
+            elif(checkTactis['path'] == 'c4'):
+                return TicTacToe.move(1 if cvas[0] == '#' else 4 if cvas[4] == '#' else 7, cvas, False)
+            elif(checkTactis['path'] == 'c5'):
+                return TicTacToe.move(2 if cvas[1] == '#' else 5 if cvas[5] == '#' else 8, cvas, False)
+            elif(checkTactis['path'] == 'c6'):
+                return TicTacToe.move(3 if cvas[2] == '#' else 6 if cvas[6] == '#' else 9, cvas, False)
+            elif(checkTactis['path'] == 'c7'):
+                return TicTacToe.move(1 if cvas[0] == '#' else 5 if cvas[5] == '#' else 9, cvas, False)
+            else:
+                return TicTacToe.move(3 if cvas[2] == '#' else 5 if cvas[6] == '#' else 7, cvas, False)
     
+    def cpu(cvas):
+        checkTactis = TicTacToe.aI(cvas)
+        ko = TicTacToe.aiKiller(cvas)
+        if(ko['status']):
+            return TicTacToe.aiMove(cvas, ko)
+        if(checkTactis['status']):
+            return TicTacToe.aiMove(cvas,checkTactis)
+        else:
+            if(cvas[5] == '#'):
+                return TicTacToe.move(5, cvas, False)
+            else:
+                check = TicTacToe.move(random.randint(1,9), cvas, False)
+                while(check['status'] == 'error'):
+                    numb = random.randint(1,9)
+                    print('===== '+numb+' =====')
+                    check = TicTacToe.move(numb, cvas, False)
+                    print(check['status'])
+                return check
+
+
     def victory(cvas, turn):
         c1 = cvas[0]+cvas[1]+cvas[2]
         c2 = cvas[4]+cvas[5]+cvas[6]
         c3 = cvas[8]+cvas[9]+cvas[10]
 
         c4 = cvas[0]+cvas[4]+cvas[8]
-        c5 = cvas[1]+cvas[5]+cvas[6]
+        c5 = cvas[1]+cvas[5]+cvas[9]
         c6 = cvas[2]+cvas[6]+cvas[10]
 
         c7 = cvas[0]+cvas[5]+cvas[10]
@@ -138,20 +176,26 @@ class TicTacToe:
         c3 = cvas[8]+cvas[9]+cvas[10]
 
         c4 = cvas[0]+cvas[4]+cvas[8]
-        c5 = cvas[1]+cvas[5]+cvas[6]
+        c5 = cvas[1]+cvas[5]+cvas[9]
         c6 = cvas[2]+cvas[6]+cvas[10]
 
         c7 = cvas[0]+cvas[5]+cvas[10]
         c8 = cvas[2]+cvas[5]+cvas[8]
-        return {'status':True, 'path':'c1'} if c1.count('0') == 2 else {'status':True, 'path':'c2'} if c2.count('0') == 2 else {'status':True, 'path':'c3'} if c3.count('0') == 2 else {'status':True, 'path':'c4'} if c4.count('0') == 2 else {'status':True, 'path':'c5'} if c5.count('0') == 2 else {'status':True, 'path':'c6'} if c6.count('0') == 2 else {'status':True, 'path':'c7'} if c7.count('0') == 2 else {'status':True, 'path':'c8'} if c8.count('0') == 2 else   {'status':False, 'path':''}
+        return {'status':True, 'path':'c1'} if c1.count('0') == 2 and c1.count('x') <= 0 else {'status':True, 'path':'c2'} if c2.count('0') == 2 and  c2.count('x') <= 0 else {'status':True, 'path':'c3'} if c3.count('0') == 2 and  c3.count('x') <= 0 else {'status':True, 'path':'c4'} if c4.count('0') == 2 and  c4.count('x') <= 0 else {'status':True, 'path':'c5'} if c5.count('0') == 2 and  c5.count('x') <= 0 else {'status':True, 'path':'c6'} if c6.count('0') == 2 and  c6.count('x') <= 0 else {'status':True, 'path':'c7'} if c7.count('0') == 2 and c7.count('x') <= 0 else {'status':True, 'path':'c8'} if c8.count('0') == 2 and  c8.count('x') <= 0 else   {'status':False, 'path':''}
 
+    def aiKiller(cvas):
+        c1 = cvas[0]+cvas[1]+cvas[2]
+        c2 = cvas[4]+cvas[5]+cvas[6]
+        c3 = cvas[8]+cvas[9]+cvas[10]
 
-    def cpu(cvas):
-        checkTactis = TicTacToe.aI(cvas)
-        if(checkTactis['status']):
-            print(True)
-        else:
-            print(False)
+        c4 = cvas[0]+cvas[4]+cvas[8]
+        c5 = cvas[1]+cvas[5]+cvas[9]
+        c6 = cvas[2]+cvas[6]+cvas[10]
+
+        c7 = cvas[0]+cvas[5]+cvas[10]
+        c8 = cvas[2]+cvas[5]+cvas[8]
+
+        return {'status':True, 'path':'c1'} if c1.count("x") == 2 and c1.count("0") <= 0 else {'status':True, 'path':'c2'} if c2.count("x") == 2 and  c2.count("0") <= 0 else {'status':True, 'path':'c3'} if c3.count("x") == 2 and  c3.count("0") <= 0 else {'status':True, 'path':'c4'} if c4.count("x") == 2 and  c4.count("0") <= 0 else {'status':True, 'path':'c5'} if c5.count("x") == 2 and  c5.count("0") <= 0 else {'status':True, 'path':'c6'} if c6.count("x") == 2 and  c6.count("0") <= 0 else {'status':True, 'path':'c7'} if c7.count("x") == 2 and c7.count("0") <= 0 else {'status':True, 'path':'c8'} if c8.count("x") == 2 and  c8.count("0") <= 0 else   {'status':False, 'path':''}
 
 
     def action(canvas):
@@ -170,7 +214,7 @@ class TicTacToe:
             return TicTacToe.action(canvas)
         return mov
 
-    def singlePlayer(canvas):
+    def multiPlayer(canvas):
         turn = True
         print(canvas)
         while(True):
@@ -193,15 +237,15 @@ class TicTacToe:
             TicTacToe.main()
         exit()
 
-    def multiPlayer(canvas):
+    def singlePlayer(canvas):
         turn = True
         print(canvas)
         while(True):
-            p1move = TicTacToe.action(canvas)
+            p1move = TicTacToe.action(canvas) if turn else 1
             if(p1move == 0):
                 break
             os.system('cls')
-            cvs = TicTacToe.move(p1move,canvas,turn)
+            cvs = TicTacToe.move(p1move,canvas,turn) if turn else TicTacToe.cpu(canvas)
             canvas = cvs['canvas']
             if(cvs['status'] == False):
                 break
@@ -226,10 +270,10 @@ class TicTacToe:
         canvas = '###\n###\n###'
         if(int(mode) == 2):
             print('====== Multiplayer ======')
-            TicTacToe.singlePlayer(canvas)
+            TicTacToe.multiPlayer(canvas)
         else:
             print('====== Single Player ======')
-            TicTacToe.multiPlayer(canvas)
+            TicTacToe.singlePlayer(canvas)
        
 
 hman = HangingMan

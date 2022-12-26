@@ -123,7 +123,7 @@ class TicTacToe:
             elif(checkTactis['path'] == 'c2'):
                 return TicTacToe.move(4 if cvas[4] == '#' else 5 if cvas[5] == '#' else 6, cvas, False)
             elif(checkTactis['path'] == 'c3'):
-                return TicTacToe.move(7 if cvas[8] == '#' else 7 if cvas[9] == '#' else 8, cvas, False)
+                return TicTacToe.move(7 if cvas[8] == '#' else 8 if cvas[9] == '#' else 9, cvas, False)
             elif(checkTactis['path'] == 'c4'):
                 return TicTacToe.move(1 if cvas[0] == '#' else 4 if cvas[4] == '#' else 7, cvas, False)
             elif(checkTactis['path'] == 'c5'):
@@ -133,7 +133,7 @@ class TicTacToe:
             elif(checkTactis['path'] == 'c7'):
                 return TicTacToe.move(1 if cvas[0] == '#' else 5 if cvas[5] == '#' else 9, cvas, False)
             else:
-                return TicTacToe.move(3 if cvas[2] == '#' else 5 if cvas[6] == '#' else 7, cvas, False)
+                return TicTacToe.move(3 if cvas[2] == '#' else 5 if cvas[5] == '#' else 7, cvas, False)
     
     def cpu(cvas):
         checkTactis = TicTacToe.aI(cvas)
@@ -149,7 +149,6 @@ class TicTacToe:
                 check = TicTacToe.move(random.randint(1,9), cvas, False)
                 while(check['status'] == 'error'):
                     numb = random.randint(1,9)
-                    print('===== '+numb+' =====')
                     check = TicTacToe.move(numb, cvas, False)
                     print(check['status'])
                 return check

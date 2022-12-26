@@ -152,7 +152,6 @@ class TicTacToe:
                 while(check['status'] == 'error'):
                     numb = random.randint(1,9)
                     check = TicTacToe.move(numb, cvas, False)
-                    print(check['status'])
                 return check
 
 

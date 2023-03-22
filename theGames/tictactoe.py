@@ -2,6 +2,8 @@ import random
 import os
 
 class TicTacToe:
+    def justForTest():
+        print('test')
     def move(m,c,turn):
         spot = m-1 if m <= 3 else m if m > 3 and m <=6 else m+1
         cvas = list(c)
